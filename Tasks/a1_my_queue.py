@@ -3,6 +3,7 @@ My little Queue
 """
 from typing import Any
 
+my_queue = [] # конец слева
 
 def enqueue(elem: Any) -> None:
     """
@@ -11,7 +12,7 @@ def enqueue(elem: Any) -> None:
     :param elem: element to be added
     :return: Nothing
     """
-    print(elem)
+    my_queue.insert(0, elem)
     return None
 
 
@@ -21,7 +22,7 @@ def dequeue() -> Any:
 
     :return: dequeued element
     """
-    return None
+    return my_queue.pop() if my_queue else None
 
 
 def peek(ind: int = 0) -> Any:
@@ -31,8 +32,7 @@ def peek(ind: int = 0) -> Any:
     :param ind: index of element (count from the beginning)
     :return: peeked element
     """
-    print(ind)
-    return None
+    return None if ind >= len(my_queue) else my_queue[-1 - ind]
 
 
 def clear() -> None:
@@ -41,4 +41,9 @@ def clear() -> None:
 
     :return: None
     """
+    my_queue.clear()
     return None
+
+if __name__ == '__main__':
+    enqueue(1)
+    print(my_queue)

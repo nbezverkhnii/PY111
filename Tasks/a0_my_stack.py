@@ -2,7 +2,7 @@
 My little Stack
 """
 from typing import Any
-
+my_stack = [] # вершина стека справа
 
 def push(elem: Any) -> None:
     """
@@ -12,6 +12,7 @@ def push(elem: Any) -> None:
     :return: Nothing
     """
     print(elem)
+    my_stack.append(elem)
     return None
 
 
@@ -42,3 +43,9 @@ def clear() -> None:
     :return: None
     """
     return None
+
+if __name__ == '__main__':
+    print(my_stack)
+    push(1)
+    print(my_stack)
+    push(1)

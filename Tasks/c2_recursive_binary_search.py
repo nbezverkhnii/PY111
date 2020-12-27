@@ -1,7 +1,7 @@
 from typing import Sequence, Optional
 
 
-def binary_search(elem: int, arr: Sequence, magic: int = 0) -> Optional[int]:
+def binary_search(elem: int, arr: Sequence) -> Optional[int]:
     """
     Performs binary search of given element inside of array (using recursive way)
 
@@ -9,22 +9,25 @@ def binary_search(elem: int, arr: Sequence, magic: int = 0) -> Optional[int]:
     :param arr: array where element is to be found
     :return: Index of element if it's presented in the arr, None otherwise
     """
-    start = 0
-    end = len(arr) + 1
-
-    if len(arr) == 0:
+    start: int = 0
+    end: int = len(arr) + 1
+    # If arr is empty
+    if not arr:
         return None
-    elif len(arr) == 1 and arr[0] != elem:
-        return None
-    elif len(arr) == 1 and arr[0] == elem:
-        return 0 + magic
 
-    while start <= end:
-        middle = int((start + end)/2)
-        if arr[middle] < elem:
-            magic += middle
-            binary_search(elem, arr[middle+1:end], magic)
-        elif arr[middle] > elem:
-            magic -= middle
-            binary_search(elem, arr[start:middle-1], magic)
+    def recursive(left: int, right: int):
+        while left <= right:
+            middle: int = left - (left - right)//2
+            if arr[middle] == elem:
+                # This loop implements left-side search
+                while arr[middle-1] == elem:
+                    middle -= 1
+                return middle
+            elif arr[middle] < elem:
+                new_left = middle + 1
+                return recursive(new_left, right)
+            elif arr[middle] > elem:
+                new_right = middle - 1
+                return recursive(left, new_right)
 
+    return recursive(start, end)

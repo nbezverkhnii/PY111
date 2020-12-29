@@ -34,25 +34,3 @@ def bfs(g: nx.Graph, start_node: Hashable) -> List[Hashable]:
                 queue.append(neighbor)
 
     return path
-
-
-if __name__ == '__main__':
-    graph = nx.Graph()
-    graph.add_nodes_from("ABCDEFGHIJ")
-    graph.add_edges_from([
-        ('A', 'B'),
-        ('A', 'F'),
-        ('B', 'G'),
-        ('F', 'G'),
-        ('G', 'C'),
-        ('G', 'H'),
-        ('G', 'I'),
-        ('C', 'H'),
-        ('I', 'H'),
-        ('H', 'D'),
-        ('H', 'E'),
-        ('H', 'J'),
-        ('E', 'D'),
-    ])
-
-    draw(graph)

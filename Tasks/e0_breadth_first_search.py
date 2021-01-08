@@ -1,13 +1,7 @@
-from typing import Hashable, List
+from typing import Hashable, List, Set, Deque
 from collections import deque
 
 import networkx as nx
-import matplotlib.pyplot as plt
-
-
-def draw(g: nx.Graph):
-    nx.draw(g, with_labels=True)
-    plt.show()
 
 
 def bfs(g: nx.Graph, start_node: Hashable) -> List[Hashable]:
@@ -18,10 +12,9 @@ def bfs(g: nx.Graph, start_node: Hashable) -> List[Hashable]:
     :param start_node: starting node for search
     :return: list of nodes in the visited order
     """
-    was_visited = set()
-    queue = deque()
-    path = []
-
+    was_visited: Set[Hashable] = set()
+    queue: Deque[Hashable] = deque()
+    path: List[Hashable] = []
     queue.append(start_node)
 
     while queue:
@@ -34,3 +27,24 @@ def bfs(g: nx.Graph, start_node: Hashable) -> List[Hashable]:
                 queue.append(neighbor)
 
     return path
+
+
+if __name__ == '__main__':
+    graph = nx.Graph()
+    graph.add_nodes_from("ABCDEFGHIJ")
+    graph.add_edges_from([
+        ('A', 'B'),
+        ('A', 'F'),
+        ('B', 'G'),
+        ('F', 'G'),
+        ('G', 'C'),
+        ('G', 'H'),
+        ('G', 'I'),
+        ('C', 'H'),
+        ('I', 'H'),
+        ('H', 'D'),
+        ('H', 'E'),
+        ('H', 'J'),
+        ('E', 'D'),
+    ])
+    print(bfs(graph, 'A'))

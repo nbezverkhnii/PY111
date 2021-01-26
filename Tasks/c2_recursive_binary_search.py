@@ -9,5 +9,25 @@ def binary_search(elem: int, arr: Sequence) -> Optional[int]:
     :param arr: array where element is to be found
     :return: Index of element if it's presented in the arr, None otherwise
     """
-    print(elem, arr)
-    return None
+    start: int = 0
+    end: int = len(arr) + 1
+    # If arr is empty
+    if not arr:
+        return None
+
+    def recursive(left: int, right: int):
+        while left <= right:
+            middle: int = left - (left - right)//2
+            if arr[middle] == elem:
+                # This loop implements left-side search
+                while arr[middle-1] == elem:
+                    middle -= 1
+                return middle
+            elif arr[middle] < elem:
+                new_left = middle + 1
+                return recursive(new_left, right)
+            elif arr[middle] > elem:
+                new_right = middle - 1
+                return recursive(left, new_right)
+
+    return recursive(start, end)
